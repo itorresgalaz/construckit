@@ -64,8 +64,10 @@ return [
     | is set to "UTC" by default as it is suitable for most use cases.
     |
     */
+    //Timezone se configura desde el .env
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
-    'timezone' => 'UTC',
+    'display_timezone' => env('APP_DISPLAY_TIMEZONE','America/Santiago'),
 
     /*
     |--------------------------------------------------------------------------

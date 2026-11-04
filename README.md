@@ -12,8 +12,8 @@
 # Stack
 
 - Laravel 13.x 
-- PHP 8.3
-- MySQL 8.0
+- PHP 8.4
+- MySQL 8.4
 - Composer 2.5.8
 - Node.js 18.16.0
 - NPM 9.5.1
