@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Enums\EquipmentStatus;
+use App\Http\Enums\EquipmentType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,8 +25,8 @@ class Equipment extends Model
     public function casts(): array
     {
         return [
-            'type' => 'string',
-            'status' => 'string',
+            'type' => EquipmentType::class,
+            'status' => EquipmentStatus::class,
             'current_hour_meter' => 'decimal:2',
         ];
     }

@@ -19,6 +19,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
+
+
         Route::get('/users', function (Request $request) {
             return User::all();
         });
