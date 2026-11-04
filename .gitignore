@@ -1,0 +1,68 @@
+
+# ==========================================
+# Laravel / PHP
+# ==========================================
+*.log
+/vendor
+/node_modules
+/public/build
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+
+_ide_helper.php
+.phpactor.json
+.phpunit.result.cache
+/.phpunit.cache
+
+# ==========================================
+# Variables de entorno y credenciales
+# ==========================================
+.env
+.env.*
+!.env.example
+!.env.testing.example
+/auth.json
+
+# ==========================================
+# IDE / Herramientas
+# ==========================================
+/.idea
+/.vscode
+/.nova
+/.zed
+/.cursor/
+/.codex
+/.claude
+
+# ==========================================
+# Docker / MySQL
+# ==========================================
+/docker/mysql/data/
+/docker/mysql/backups/
+/mysql_data/
+docker-compose.override.yml
+compose.override.yaml
+
+# ==========================================
+# Testing
+# ==========================================
+/coverage/
+/test-results/
+
+# ==========================================
+# Entornos antiguos
+# ==========================================
+Homestead.json
+Homestead.yaml
+
+# ==========================================
+# Sistema operativo
+# ==========================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
