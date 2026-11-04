@@ -18,3 +18,10 @@
 - Node.js 18.16.0
 - NPM 9.5.1
 - Docker, Docker Compose
+
+
+Para usar los factories
+
+php artisan tinker
+
+> \App\Models\User::factory(10)->create();
