@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Enums\EquipmentStatus;
 use App\Http\Enums\EquipmentType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,10 +26,9 @@ class EquipmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
             'internal_code' => [
-                'required|string|max:50',
-                Rule::unique('equipments')->ignore($this->route('equipment'))
+                'required', 'string', 'max:50',
+                Rule::unique('equipment')->ignore($this->route('equipment')),
             ],
             'type'          => ['required', Rule::enum(EquipmentType::class)],
             'license_plate' => ['nullable', 'string', 'max:20'],

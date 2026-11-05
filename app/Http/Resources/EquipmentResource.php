@@ -21,6 +21,7 @@ class EquipmentResource extends JsonResource
             'license_plate' => $this->license_plate,
             'brand'         => $this->brand,
             'model'         => $this->model,
+            'current_hour_meter' => $this->current_hour_meter,
             'status'        => $this->status,
         ];
     }
