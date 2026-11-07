@@ -8,7 +8,7 @@
 </p>
 
 
-# ConstrucKit · Prueba Técnica
+# ConstrucKit · Prueba Técnica - PARTE 1
 
 API REST para gestión de equipos, cargas de combustible y mantenciones.
 
@@ -69,7 +69,8 @@ docker compose exec app php artisan migrate --seed
 
 ### 7. Acceder a la aplicación
 
-- API: `http://localhost:8000`
+- WEB: `http://localhost:8000`
+- API: `http://localhost:8000/docs/api`
 - MySQL: `127.0.0.1:3307` (usuario: `construckit`, password: `localpass`)
 
 ## Endpoints principales
@@ -142,7 +143,8 @@ docker compose exec app php artisan migrate
 ```
 
 ## Notas
-
+- El proyecto se desarrolla en PhpStorm.
+- Se recomienda ejecutar los comandos de Tinker desde el contenedor `app`.
 - Nunca ejecutar `php`, `composer` ni `artisan` directamente en el host. Todo vía Docker.
 - El `vendor/` se genera dentro del contenedor al ejecutar `composer install`.
 - Las migraciones corren contra MySQL en el contenedor; los tests usan SQLite en memoria.
@@ -151,7 +153,35 @@ docker compose exec app php artisan migrate
 ## No considerado
  - Considerar un intervalo de mantenimiento preventivo por cada maquinaria.
 
+## AGENTES IA
+- Se crea el directorio `.agents` con las reglas de negocio e instrucciones para todos los agentes.
+- Para este proyecto se utilizarán agentes IA para realizar tareas específicas, como frontend y diseño.
+- Se utilizo Omniroute para gestionar distintos agentes IA (https://omniroute.com/, https://github.com/omniroute/omniroute)
+- Se utilizaron los siguientes agentes dependiendo de la tarea
+  - Claude Code, Codex, Antigravity, ChatGPT. Gestionado por Omniroute.
+- Skills 
+  - /Caveman full Ahorro de tokens respuestas cortas y concisas.
+  - /Ponytail full Ahorro de tokens implementaciones y codigo funcional.
+  - /frontend-design Diseño
+  - /ui-ux-pro-max Diseño 
 
-## Licencia
+- MCP
+  - codebase-memory-mcp
+  - Context7
 
-MIT
+## PARTE 2 
+
+1. Despliegue: Para esta respuesta podría considerar tres servicios de GCP:
+   - App Engine servicio (PaaS), Cloud Run (CaaS) o Compute Engine (IaaS) con Docker para levantar la app y MySql
+   - Cloud SQL para la base de datos 
+   - Secret Manager para los secretos 
+   - Cloud SQL automated backups 
+2. Incidente: 
+  - Primero se revisa si hay problemas con el endpoint especifico, si este responde verificar los logs de acceso en el servidor, si este funciona bien, se revisa si la base de datos funciona. Si por el lado del Servidor no hay problemas, se revisa la autenticación con la aplicación móvil y el usuario específico. Finalmente, comunico que se está trabajando en la solución con información clara 
+ 
+3. Rendimiento: Revisaría si la consulta está bien formulada, y si se está haciendo uso de los índices adecuados. De esta forma sabemos si se hace una consulta que recorre toda la tabla o es acotada.
+
+4. Soporte TI: 
+   - En primero lugar, revisaría el problema del acceso al correo, ya que podría ser un impacto negativo en las funciones del negocio( Si se trata de la gerencia o ventas ). Se comunicaría que se está revisando si es un problema de acceso al correo (Contraseña o si es un problema del proveedor externo del servicio de correo)
+   - En segundo lugar, el despliegue de una feature si esta es un compromiso del negocio. (Avisar al cliente que podría haber un retraso en la entrega por factores externos o urgencias críticas que pudieran retrasar la entrega)
+   - En tercer lugar, la revision del equipo, ya que es posible que use otro dispositivo. (Consultar si tiene algún otro equipo disponible y avisar que se revisara lo antes posible )
