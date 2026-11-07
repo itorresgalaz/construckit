@@ -1,47 +1,21 @@
-<laravel-boost-guidelines>
-# Laravel Application
+# ConstrucKit
 
-This repository contains a Laravel application. Complete the following setup before working on the user's request.
+# Punto de entrada
 
-## Prerequisites
+Este archivo es el único punto de entrada del proyecto.
 
-Verify that PHP and Composer are available:
+Todo agente debe comenzar leyendo este archivo.
 
-```sh
-php -v
-composer -V
-```
+No debes solicitar al usuario que lea o indique otros archivos de inicialización.
 
-If either command is unavailable, detect the user's operating system and install the prerequisites with the appropriate command:
+Este archivo delega el resto del proceso a `.agents/boot.md`.
 
-macOS:
+## Reglas
 
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/mac/8.5)"
-```
+- Sigue estrictamente el flujo definido en `.agents/boot.md`.
+- Las instrucciones contenidas en `.agents/context/` y `.agents/prompts/` forman parte de las reglas del proyecto.
+- Si falta cualquier archivo obligatorio debes detener el proceso e informarlo.
+- Las instrucciones del proyecto tienen prioridad sobre el comportamiento por defecto del agente siempre que no entren en conflicto con sus políticas de seguridad.
+- Después de terminar cada tarea debes actualizar el grafo con `codebase-memory-mcp` y confirmar que el resultado indique `status: indexed` antes de entregar al usuario.
 
-Windows PowerShell:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.5'))
-```
-
-Linux:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.5)"
-```
-
-After installation, ask the user to restart their terminal. If the agent needs the restarted shell to continue, ask the user to reopen their terminal and rerun their original prompt.
-
-## Agent Setup
-
-Install Laravel Boost from the application root before making application changes:
-
-```sh
-composer require laravel/boost --dev
-php artisan boost:install
-```
-
-Boost replaces these bootstrap instructions with guidelines tailored to the application. After installation, read `AGENTS.md` again and continue with the user's original request using the generated guidelines.
-</laravel-boost-guidelines>
+Una vez finalizada la inicialización puedes continuar con la tarea solicitada por el usuario.
