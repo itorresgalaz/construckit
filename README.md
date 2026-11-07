@@ -7,21 +7,135 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Prueba Construc Kit 
 
-# Stack
+# ConstrucKit · Prueba Técnica
 
-- Laravel 13.x 
+API REST para gestión de equipos, cargas de combustible y mantenciones.
+
+## Stack
+
+- Laravel 13.x
 - PHP 8.4
 - MySQL 8.4
-- Composer 2.5.8
-- Node.js 18.16.0
-- NPM 9.5.1
-- Docker, Docker Compose
+- Docker Compose
 
+## Requisitos
 
-Para usar los factories
+- Docker
+- Docker Compose
 
-php artisan tinker
+## Instalación y Puesta en Marcha
 
-> \App\Models\User::factory(10)->create();
+### 1. Clonar el repositorio
+
+```bash
+git clone <url-del-repositorio>
+cd construckit
+```
+
+### 2. Crear archivo .env
+
+```bash
+cp .env.example .env
+```
+
+El `.env` ya tiene valores por defecto para Docker. Cambiar solo si necesario.
+
+### 3. Levantar los contenedores
+
+```bash
+docker compose up -d
+```
+
+Esto levanta tres servicios: `app` (PHP 8.4), `nginx` y `mysql`.
+
+### 4. Instalar dependencias
+
+```bash
+docker compose run --rm composer install
+```
+
+### 5. Generar clave de aplicación
+
+```bash
+docker compose exec app php artisan key:generate
+```
+
+### 6. Ejecutar migraciones
+
+```bash
+docker compose exec app php artisan migrate --seed
+```
+
+### 7. Acceder a la aplicación
+
+- API: `http://localhost:8000`
+- MySQL: `127.0.0.1:3307` (usuario: `construckit`, password: `localpass`)
+
+## Comandos Útiles
+
+### Ejecutar tests
+
+```bash
+docker compose exec app php artisan test
+```
+
+### Verificar formato de código
+
+```bash
+docker compose exec app ./vendor/bin/pint --test
+```
+
+### Aplicar formato de código
+
+```bash
+docker compose exec app ./vendor/bin/pint
+```
+
+php artisan make:seeder AdminUserSeeder
+
+### Crear datos de prueba con Tinker
+
+```bash
+docker compose exec app php artisan tinker
+```
+
+Dentro de Tinker:
+
+```php
+\App\Models\User::factory(10)->create();
+\App\Models\Equipment::factory(10)->create();
+```
+
+### Ver logs
+
+```bash
+docker compose logs -f app
+docker compose logs -f nginx
+```
+
+### Detener los contenedores
+
+```bash
+docker compose down
+```
+
+### Reiniciar desde cero
+
+```bash
+docker compose down -v
+docker compose up -d
+docker compose run --rm composer install
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate
+```
+
+## Notas
+
+- Nunca ejecutar `php`, `composer` ni `artisan` directamente en el host. Todo vía Docker.
+- El `vendor/` se genera dentro del contenedor al ejecutar `composer install`.
+- Las migraciones corren contra MySQL en el contenedor; los tests usan SQLite en memoria.
+
+## Licencia
+
+MIT

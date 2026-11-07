@@ -22,7 +22,7 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('equipment', EquipmentController::class);
 
-        Route::apiResource('fuel_loads', FuelLoadController::class);
+        Route::apiResource('fuel_loads', FuelLoadController::class)->except('update','destroy');
 
 
         Route::get('/user', function (Request $request) {
@@ -35,7 +35,7 @@ Route::prefix('v1')->group(function () {
         });
 
 
-        Route::prefix('equipment')->group(function () {
+/*        Route::prefix('equipment')->group(function () {
 
             Route::get('/',[EquipmentController::class, 'index']);
 
@@ -43,7 +43,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/{equipment}/fuel-loads',[FuelLoadController::class, 'show']);
 
 
-        });
+        });*/
 
 
 

@@ -6,7 +6,7 @@ Fuente: `docs/Prueba.md`. Lo marcado como "decisión" no está en el enunciado: 
 
 - Campos: código interno (único), tipo, patente (opcional), marca, modelo, horómetro actual, estado.
 - Estados: operativo, en mantención, fuera de servicio.
-- Tipos conocidos: camión, excavadora, generador. El catálogo cerrado es decisión.
+- Tipos conocidos: camión, excavadora, generador.
 - Decisión: borrar un equipo con historial responde 409 (FKs con `restrict`).
 
 ## Horómetro

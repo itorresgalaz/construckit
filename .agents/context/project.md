@@ -6,7 +6,7 @@ Objetivo: API REST para gestionar el uso del equipamiento (camiones, excavadoras
 
 Stack: Laravel 13, PHP 8.4, MySQL 8.4, Sanctum , Docker Compose. Sin frontend.
 
-Roles: Administrador y Operador. El enunciado solo exige autenticación simple; la diferencia de permisos entre roles aún no está definida. No inventarla: preguntar antes de implementarla.
+Roles: Administrador y Operador. El enunciado solo exige autenticación simple; la diferencia de permisos entre roles aún no está definida.
 
 ## Flujos principales (no romper)
 
@@ -18,7 +18,18 @@ Roles: Administrador y Operador. El enunciado solo exige autenticación simple; 
 
 ## Estado
 
-Esqueleto Laravel: solo `User`, `routes/web.php` y `routes/console.php`. No existen `routes/api.php`, Sanctum ni modelos de dominio. Verificar con `codebase-memory-mcp` antes de asumir algo distinto.
+Proyecto en desarrollo activo, no esqueleto vacío:
+
+- Laravel Sanctum y Scramble están instalados.
+- `routes/api.php` expone API v1 protegida por `auth:sanctum`: login, logout, usuario actual, usuarios, CRUD de equipos y rutas de cargas de combustible.
+- Autenticación por token implementada en `AuthController`; `User` usa `HasApiTokens`.
+- Equipos: modelo, enums, migración, factory, seeder, FormRequest, Resource y controlador CRUD implementados.
+- Cargas de combustible: modelo, enum, migración, factory, FormRequest, Resource y controlador creados; el controlador está incompleto y contiene imports/nombres inconsistentes.
+- Mantenciones: enum, modelo y migración creados, pero modelo y esquema siguen vacíos; no hay controlador, request, resource ni rutas.
+- Reporte por rango de fechas, preventivas pendientes y servicio transaccional del horómetro aún no están implementados.
+- Solo existen tests de ejemplo; no hay cobertura del dominio ni de la API.
+
+Estado del grafo al 2026-11-07: 717 nodos, 1092 relaciones y 7 rutas detectadas. Verificar nuevamente con `codebase-memory-mcp` antes de asumir que este estado sigue vigente.
 
 ## Documentación local
 

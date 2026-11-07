@@ -35,8 +35,9 @@ _ide_helper.php
 /.zed
 /.cursor/
 /.codex
-/.claude
 
+.claude/settings.json
+.claude/settings.local.json
 # ==========================================
 # Docker / MySQL
 # ==========================================
