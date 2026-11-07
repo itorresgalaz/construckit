@@ -9,21 +9,30 @@ use App\Models\Equipment;
 use App\Services\HourMeterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 
 class FuelLoadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+/*    public function index()
     {
         //
         // return FuelLoad::all();
+    }*/
+
+    /**
+     * Cargas de combustible de un equipo, paginadas (más recientes primero).
+     */
+    public function byEquipment(Equipment $equipment): AnonymousResourceCollection
+    {
+        return FuelLoadResource::collection(
+            $equipment->fuelLoads()->latest('occurred_at')->latest('id')->paginate(10)
+        );
     }
 
     /**
-     * Registrar Carga de Combustible.
+     * Registrar carga de combustible de un equipo.
      */
     public function store(FuelLoadRequest $request, HourMeterService $service): JsonResponse
     {
@@ -44,27 +53,20 @@ class FuelLoadController extends Controller
         return new FuelLoadResource($fuelLoad)->response()->setStatusCode(201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(FuelLoad $fuelLoad)
+/*    public function show(FuelLoad $fuelLoad)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, FuelLoad $fuelLoad)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(FuelLoad $fuelLoad)
     {
         //
-    }
+    }*/
 }

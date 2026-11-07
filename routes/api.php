@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EquipmentController;
 use App\Http\Controllers\Api\EquipmentReportController;
 use App\Http\Controllers\Api\FuelLoadController;
 use App\Http\Controllers\Api\MaintenanceController;
+use App\Http\Controllers\Api\PendingPreventiveMaintenanceController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/logout', [AuthController::class, 'logout']);
 
+        // Debe ir antes del apiResource: 'equipment/{equipment}' capturaría este path.
+        Route::get('equipment/pending-preventive-maintenance', PendingPreventiveMaintenanceController::class);
+
         Route::apiResource('equipment', EquipmentController::class);
 
         Route::apiResource('fuel_loads', FuelLoadController::class)->except('update', 'destroy');
@@ -24,6 +28,10 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('maintenance', MaintenanceController::class)->only('store');
 
         Route::get('equipment/{equipment}/report', EquipmentReportController::class);
+
+        Route::get('equipment/{equipment}/maintenances', [MaintenanceController::class, 'byEquipment']);
+
+        Route::get('equipment/{equipment}/fuel-loads', [FuelLoadController::class, 'byEquipment']);
 
         Route::get('/user', function (Request $request) {
             return $request->user();

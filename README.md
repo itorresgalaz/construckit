@@ -72,6 +72,17 @@ docker compose exec app php artisan migrate --seed
 - API: `http://localhost:8000`
 - MySQL: `127.0.0.1:3307` (usuario: `construckit`, password: `localpass`)
 
+## Endpoints principales
+
+Todas las rutas, salvo `login`, requieren un token Sanctum.
+
+- `GET /api/v1/equipment/{equipment}/maintenances?page=1`: historial de mantenciones del equipo, paginado.
+- `GET /api/v1/equipment/{equipment}/fuel-loads?page=1`: historial de cargas de combustible del equipo, paginado.
+- `GET /api/v1/equipment/pending-preventive-maintenance?page=1`: equipos con más de 250 horas desde la última mantención preventiva.
+- `GET /api/v1/equipment/{equipment}/report?from=YYYY-MM-DD&to=YYYY-MM-DD`: reporte de consumo y costos por rango.
+
+Los listados históricos devuelven 15 registros por página, ordenados del más reciente al más antiguo. La preventiva pendiente usa un umbral estricto: más de 250 horas; mantenciones correctivas no reinician el contador.
+
 ## Comandos Útiles
 
 ### Ejecutar tests
@@ -135,6 +146,11 @@ docker compose exec app php artisan migrate
 - Nunca ejecutar `php`, `composer` ni `artisan` directamente en el host. Todo vía Docker.
 - El `vendor/` se genera dentro del contenedor al ejecutar `composer install`.
 - Las migraciones corren contra MySQL en el contenedor; los tests usan SQLite en memoria.
+
+
+## No considerado
+ - Considerar un intervalo de mantenimiento preventivo por cada maquinaria.
+
 
 ## Licencia
 
