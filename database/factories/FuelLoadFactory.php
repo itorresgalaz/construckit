@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Http\Enums\EquipmentStatus;
 use App\Http\Enums\FuelType;
 
+use App\Models\Equipment;
 use App\Models\FuelLoad;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,13 +16,12 @@ class FuelLoadFactory extends Factory
     public function definition(): array
     {
         return [
-            'internal_code' => strtoupper(fake()->unique()->bothify('EQ-####')),
-            'type' => fake()->randomElement(FuelType::cases()),
-            'license_plate' => fake()->optional()->bothify('??-??-##'),
-            'brand' => fake()->randomElement(['Volvo', 'Caterpillar', 'Komatsu', 'Mercedes-Benz']),
-            'model' => fake()->bothify('??-###'),
-            'current_hour_meter' => fake()->randomFloat(2, 0, 5000),
-            'status' => fake()->randomElement(EquipmentStatus::cases()),
+            'equipment_id' => Equipment::query()->inRandomOrder()->value('id'),
+            'fuel_type' => fake()->randomElement(FuelType::cases()),
+            'occurred_at' => fake()->optional(0.8)->dateTimeBetween('-1 year', 'now'),
+            'liters' => fake()->randomFloat(2, 10, 500),
+            'amount_clp' => fake()->numberBetween(10000, 500000),
+            'hour_meter' => fake()->randomFloat(2, 0, 5000),
         ];
     }
 }

@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class FuelLoad extends Model
 {
     use HasFactory;
+
+    protected $table = 'fuel_loads';
     protected $fillable = [
+        'equipment_id',
         'occurred_at',
         'liters',
         'amount_clp',
@@ -22,7 +25,7 @@ class FuelLoad extends Model
     {
         return [
             'occurred_at' => 'immutable_datetime',
-            'liters' => 'decimal:3',
+            'liters' => 'decimal:2',
             'amount_clp' => 'integer',
             'hour_meter' => 'decimal:2',
             'fuel_type' => FuelType::class,

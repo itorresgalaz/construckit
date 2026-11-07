@@ -22,7 +22,6 @@ class FuelLoadResource extends JsonResource
             'liters'         => $this->liters,
             'amount_clp'         => $this->amount_clp,
             'hour_meter' => $this->hour_meter,
-            'status'        => $this->status,
         ];
     }
 }

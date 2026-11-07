@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Equipment;
-use App\Models\FuelLoad;
-use Illuminate\Http\Request;
-use App\Models\FuelType;
+use App\Http\Requests\FuelLoadRequest;
 use App\Http\Resources\FuelLoadResource;
-use App\Http\Request\FuelLoadRequest;
+use App\Models\Equipment;
+use App\Services\HourMeterService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FuelLoadController extends Controller
 {
@@ -18,17 +19,29 @@ class FuelLoadController extends Controller
     public function index()
     {
         //
-        return FuelLoad::all();
+        // return FuelLoad::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registrar Carga de Combustible.
      */
-    public function store(Request $request, Equipment $equipment)
+    public function store(FuelLoadRequest $request, HourMeterService $service): JsonResponse
     {
-        //
-        $request->validated();
-        return FuelLoad::create($request->all());
+        $data = $request->validated();
+        $equipment = Equipment::findOrFail($data['equipment_id']);
+        unset($data['equipment_id']);
+
+        $fuelLoad = DB::transaction(function () use ($data, $equipment, $service) {
+            $service->apply(
+                $equipment,
+                (float) $data['hour_meter'],
+                $data['fuel_type'],
+            );
+
+            return $equipment->fuelLoads()->create($data)->refresh();
+        });
+
+        return new FuelLoadResource($fuelLoad)->response()->setStatusCode(201);
     }
 
     /**

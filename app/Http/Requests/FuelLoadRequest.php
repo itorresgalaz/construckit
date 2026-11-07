@@ -25,11 +25,12 @@ class FuelLoadRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'equipment_id' => ['required', 'integer', Rule::exists('equipment', 'id')],
             'fuel_type' => ['required', Rule::enum(FuelType::class)],
-            'occurred_at' => ['sometimes','date','before_or_equal:now'],
-            'liters' => ['required','numeric','gt:0','max:999.999'],
-            'amount_clp' => ['required','integer','min:0'],
-            'hour_meter' => ['required', 'numeric','min:0','max:999.999'],
+            'occurred_at' => ['sometimes', 'date', 'before_or_equal:now'],
+            'liters' => ['required', 'numeric', 'gt:0', 'max:999.99'],
+            'amount_clp' => ['required', 'integer', 'min:0'],
+            'hour_meter' => ['required', 'numeric', 'min:0', 'max:99999.99'],
 
         ];
     }
