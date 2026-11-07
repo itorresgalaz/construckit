@@ -26,14 +26,14 @@ class EquipmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'internal_code' => [
+/*            'internal_code' => [
                 'required', 'string', 'max:50',
                 Rule::unique('equipment')->ignore($this->route('equipment')),
-            ],
-            'type'          => ['required', Rule::enum(EquipmentType::class)],
+            ],*/
+//            'type'          => ['required', Rule::enum(EquipmentType::class)],
             'license_plate' => ['nullable', 'string', 'max:20'],
             'brand'         => ['required', 'string', 'max:100'],
-            'model'         => ['required', 'string', 'max:100'],
+//            'model'         => ['required', 'string', 'max:100'],
             'status'        => ['sometimes', Rule::enum(EquipmentStatus::class)],
         ];
     }

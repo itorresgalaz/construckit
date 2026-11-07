@@ -34,7 +34,7 @@ class EquipmentController extends Controller
     {
         $equipment = Equipment::create($request->validated())->refresh();
 
-        return (new EquipmentResource($equipment))->response()->setStatusCode(201);
+        return new EquipmentResource($equipment)->response()->setStatusCode(201);
     }
 
     /**
@@ -54,7 +54,7 @@ class EquipmentController extends Controller
     {
         $equipment->update($request->validated());
 
-        return new EquipmentResource($equipment);
+        return new EquipmentResource($equipment->refresh());
     }
 
     /**
@@ -63,7 +63,7 @@ class EquipmentController extends Controller
     public function destroy(Equipment $equipment): Response
     {
         $equipment->delete();
-
+       // noContent es un error 204
         return response()->noContent();
     }
 }
